@@ -1,35 +1,214 @@
-<!-- CARTA 1: CURSED -->
-<article class="card-entry">
-  <div class="card-top-row">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiki - UNO Caótico</title>
+  <style>
+    /* Configurações Gerais da Página */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-    <!-- QUADRO DA CARTA -->
-    <div class="uno-card red-card">
-      <!-- Canto Superior Esquerdo -->
-      <div class="card-corner top-left">
-        <svg viewBox="0 0 24 24"><path d="M 9 2 H 15 V 7 H 21 V 13 H 15 V 22 H 9 V 13 H 3 V 7 H 9 Z" fill="#000000"/></svg>
-      </div>
-      
-      <!-- Centro da Carta -->
-      <div class="card-center">
-        <svg viewBox="0 0 24 24" class="center-icon"><path d="M 9 2 H 15 V 7 H 21 V 13 H 15 V 22 H 9 V 13 H 3 V 7 H 9 Z" fill="#000000"/></svg>
-      </div>
-      
-      <!-- Canto Inferior Direito -->
-      <div class="card-corner bottom-right">
-        <svg viewBox="0 0 24 24"><path d="M 9 2 H 15 V 7 H 21 V 13 H 15 V 22 H 9 V 13 H 3 V 7 H 9 Z" fill="#000000"/></svg>
-      </div>
-    </div>
+    body {
+      background-color: #333338; /* Fundo cinza escuro idêntico à sua imagem */
+      color: #ffffff;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-    <!-- DESCRIÇÃO DA CARTA -->
-    <div class="card-desc-box">
-      <h2>Cursed</h2>
-      <p>Dobra todas as cartas recebidas e toda rodada deve comprar uma carta.</p>
-    </div>
-  </div>
+    /* Faixa Preta do Topo (Header) */
+    header {
+      width: 100%;
+      max-width: 420px;
+      background-color: #000000;
+      padding: 12px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
 
-  <!-- BUFFS / C/ CARTA MELHORIA -->
-  <div class="card-buff-box">
-    <strong>⚡ Buffs / c/ Carta Melhoria:</strong>
-    <span>Aplica o efeito a todos, menos a quem o jogou, além dos debuffs serem dobrados.</span>
-  </div>
-</article>
+    header h1 {
+      font-size: 1.3rem;
+      color: #ffffff;
+    }
+
+    /* Container Principal */
+    .wiki-container {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    /* Bloco da Carta (Montagem idêntica ao seu desenho) */
+    .card-entry {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    /* Linha Superior: Carta na esquerda, Descrição na direita */
+    .card-top-row {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    /* 1. QUADRO DA ESQUERDA: CARTA UNO VERMELHA */
+    .uno-card {
+      width: 125px;
+      height: 180px;
+      min-width: 125px; /* Trava para nunca esticar nem encolher */
+      max-width: 125px;
+      background-color: #d71921; /* Vermelho UNO */
+      border: 3.5px solid #000000; /* Borda preta marcante */
+      border-radius: 16px;
+      position: relative;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+
+    /* Cruzes pequenas dos cantos */
+    .card-corner {
+      width: 16px;
+      height: 16px;
+      z-index: 2;
+    }
+
+    .card-corner svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .top-left {
+      align-self: flex-start;
+    }
+
+    .bottom-right {
+      align-self: flex-end;
+      transform: rotate(180deg);
+    }
+
+    /* Cruz grande do centro (†) */
+    .card-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .center-icon {
+      width: 52px;
+      height: 52px;
+      display: block;
+    }
+
+    /* 2. QUADRO DA DIREITA: DESCRIÇÃO (Substitui o quadro verde) */
+    .card-desc-box {
+      flex: 1;
+      background-color: #1e1e24;
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border: 1px solid #444;
+    }
+
+    .card-desc-box h2 {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      color: #ff5252;
+    }
+
+    .card-desc-box p {
+      font-size: 0.85rem;
+      line-height: 1.35;
+      color: #d1d1d6;
+    }
+
+    /* 3. QUADRO INFERIOR: BUFFS (Substitui o quadro vermelho) */
+    .card-buff-box {
+      width: 100%;
+      background-color: #262030;
+      border-left: 5px solid #a855f7;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      line-height: 1.35;
+      color: #e2d9f3;
+      border-top: 1px solid #3d2f50;
+      border-right: 1px solid #3d2f50;
+      border-bottom: 1px solid #3d2f50;
+    }
+
+    .card-buff-box strong {
+      display: block;
+      color: #c084fc;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPO DA PÁGINA (FAIXA PRETA) -->
+  <header>
+    <h1>🎴 UNO Caótico: Wiki</h1>
+  </header>
+
+  <main class="wiki-container">
+
+    <!-- CARTA 1: CURSED -->
+    <article class="card-entry">
+      <div class="card-top-row">
+
+        <!-- QUADRO DA ESQUERDA (CARTA RED COM CRUZES †) -->
+        <div class="uno-card">
+          <div class="card-corner top-left">
+            <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
+          </div>
+          
+          <div class="card-center">
+            <svg viewBox="0 0 24 24" class="center-icon"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
+          </div>
+          
+          <div class="card-corner bottom-right">
+            <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
+          </div>
+        </div>
+
+        <!-- QUADRO DA DIREITA (DESCRIÇÃO) -->
+        <div class="card-desc-box">
+          <h2>Cursed</h2>
+          <p>Dobra todas as cartas recebidas e toda rodada deve comprar uma carta.</p>
+        </div>
+      </div>
+
+      <!-- QUADRO INFERIOR (BUFFS) -->
+      <div class="card-buff-box">
+        <strong>⚡ Buffs / c/ Carta Melhoria:</strong>
+        <span>Aplica o efeito a todos, menos a quem o jogou, além dos debuffs serem dobrados.</span>
+      </div>
+    </article>
+
+  </main>
+
+</body>
+</html>
