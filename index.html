@@ -1,62 +1,41 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wiki - UNO Caótico</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<main class="wiki-container">
 
-  <header>
-    <h1>🎴 UNO Caótico: A Wiki</h1>
-    <p>Guia oficial de cartas e efeitos especiais</p>
-  </header>
+  <!-- CARTA 1: CURSED -->
+  <article class="card-entry">
+    <div class="card-top-row">
 
-  <main class="wiki-container">
-
-    <!-- CARTA 1 -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <!-- QUADRO BRANCO (IMAGEM DA CARTA) -->
-        <div class="card-image-box">
-          <img src="https://via.placeholder.com/150x220?text=Sua+Carta" alt="Imagem da Carta">
+      <!-- CARTA DESENHADA APENAS COM CÓDIGO (CSS + SVG) -->
+      <div class="uno-card red-card">
+        <!-- Canto Superior Esquerdo -->
+        <div class="card-corner top-left">
+          <svg viewBox="0 0 24 24"><path d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7V2z" fill="#000000"/></svg>
         </div>
-
-        <!-- QUADRO VERDE (DESCRIÇÃO) -->
-        <div class="card-desc-box">
-          <h2>Nome da Carta #1</h2>
-          <p>Escreva aqui a descrição completa do que esta carta faz no jogo, quando ela pode ser jogada e as regras básicas dela.</p>
+        
+        <!-- Centro da Carta -->
+        <div class="card-center">
+          <div class="oval-bg">
+            <svg viewBox="0 0 24 24" class="center-icon"><path d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7V2z" fill="#000000"/></svg>
+          </div>
+        </div>
+        
+        <!-- Canto Inferior Direito -->
+        <div class="card-corner bottom-right">
+          <svg viewBox="0 0 24 24"><path d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7V2z" fill="#000000"/></svg>
         </div>
       </div>
 
-      <!-- QUADRO VERMELHO (BUFF / EFEITO EXTRA) -->
-      <div class="card-buff-box">
-        <strong>⚡ Buff / Efeito Passivo:</strong>
-        <span>Escreva aqui o buff, efeito colateral ou a regra de caos que essa carta ativa.</span>
+      <!-- DESCRIÇÃO DA CARTA -->
+      <div class="card-desc-box">
+        <h2>Cursed</h2>
+        <p>Dobra todas as cartas recebidas e toda rodada deve comprar uma carta.</p>
       </div>
-    </article>
+    </div>
 
-    <!-- CARTA 2 -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="card-image-box">
-          <img src="https://via.placeholder.com/150x220?text=Sua+Carta" alt="Imagem da Carta">
-        </div>
+    <!-- BUFFS / COM CARTA MELHORIA -->
+    <div class="card-buff-box">
+      <strong>⚡ Buffs / c/ Carta Melhoria:</strong>
+      <span>Aplica o efeito a todos, menos a quem o jogou, além dos debuffs serem dobrados.</span>
+    </div>
+  </article>
 
-        <div class="card-desc-box">
-          <h2>Nome da Carta #2</h2>
-          <p>Outra descrição para uma segunda carta do seu baralho caótico.</p>
-        </div>
-      </div>
-
-      <div class="card-buff-box">
-        <strong>⚡ Buff / Efeito Passivo:</strong>
-        <span>Quem jogar esta carta compra 2 cartas imediatamente.</span>
-      </div>
-    </article>
-
-  </main>
-
-</body>
-</html>
+</main>
