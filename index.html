@@ -71,16 +71,12 @@
       flex-shrink: 0;
     }
 
-    /* CORES DAS CARTAS */
-    .red-card {
-      background-color: #d71921; /* Vermelho UNO */
-    }
+    /* CORES DE FUNDO DAS CARTAS */
+    .red-card { background-color: #d71921; }
+    .blue-card { background-color: #38b6ff; }
+    .white-card { background-color: #ffffff; }
 
-    .blue-card {
-      background-color: #38b6ff; /* Azul Claro */
-    }
-
-    /* CRUZES EM PÉ */
+    /* ÍCONES DOS CANTOS */
     .card-corner {
       width: 18px;
       height: 18px;
@@ -93,14 +89,10 @@
       display: block;
     }
 
-    .top-left {
-      align-self: flex-start;
-    }
+    .top-left { align-self: flex-start; }
+    .bottom-right { align-self: flex-end; }
 
-    .bottom-right {
-      align-self: flex-end;
-    }
-
+    /* ÍCONE DO CENTRO */
     .card-center {
       position: absolute;
       top: 50%;
@@ -136,6 +128,7 @@
 
     .red-title { color: #ff5252; }
     .blue-title { color: #38b6ff; }
+    .green-title { color: #2ecc71; }
 
     .card-desc-box p {
       font-size: 0.85rem;
@@ -180,16 +173,13 @@
     <!-- CARTA 1: CURSED -->
     <article class="card-entry">
       <div class="card-top-row">
-
         <div class="uno-card red-card">
           <div class="card-corner top-left">
             <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
           </div>
-          
           <div class="card-center">
             <svg viewBox="0 0 24 24" class="center-icon"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
           </div>
-          
           <div class="card-corner bottom-right">
             <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
           </div>
@@ -210,16 +200,13 @@
     <!-- CARTA 2: BLESSED -->
     <article class="card-entry">
       <div class="card-top-row">
-
         <div class="uno-card blue-card">
           <div class="card-corner top-left">
             <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
           </div>
-          
           <div class="card-center">
             <svg viewBox="0 0 24 24" class="center-icon"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
           </div>
-          
           <div class="card-corner bottom-right">
             <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
           </div>
@@ -234,6 +221,53 @@
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Divine Blessed:</span> Não sofre efeito de nenhuma carta exceto por reset.</span>
+      </div>
+    </article>
+
+    <!-- CARTA 3: VENENO -->
+    <article class="card-entry">
+      <div class="card-top-row">
+        <div class="uno-card white-card">
+          <!-- QUADRADO 4 CORES NO CANTO -->
+          <div class="card-corner top-left">
+            <svg viewBox="0 0 20 20">
+              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
+              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
+              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
+              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
+            </svg>
+          </div>
+
+          <!-- FRASCO COM SOLUÇÃO VERDE -->
+          <div class="card-center">
+            <svg viewBox="0 0 24 24" class="center-icon">
+              <!-- Frasco -->
+              <path d="M9 3h6v2h-1v3.5l4.5 7.8A3 3 0 0 1 15.9 21H8.1a3 3 0 0 1-2.6-4.7L10 8.5V5H9V3z" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Poção Verde interna -->
+              <path d="M7 16.5l2.5-4.3h5l2.5 4.3a1 1 0 0 1-.9 1.5H7.9a1 1 0 0 1-.9-1.5z" fill="#2ecc71"/>
+            </svg>
+          </div>
+
+          <!-- QUADRADO 4 CORES NO CANTO INFERIOR -->
+          <div class="card-corner bottom-right">
+            <svg viewBox="0 0 20 20">
+              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
+              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
+              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
+              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="card-desc-box">
+          <h2 class="green-title">Veneno</h2>
+          <p>Envenena um jogador de sua escolha, o jogador envenenado compra 3 cartas no primeiro turno após ser descartada, no segundo turno ele compra 2 e no terceiro turno compra 1.</p>
+        </div>
+      </div>
+
+      <div class="card-buff-box">
+        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
+        <span><span class="buff-name">Veneno vencido:</span> o efeito do veneno dura 5 turnos 1° turno após jogada compra 5 depois no 2° compra 4 e vai até chegar a 1.</span>
       </div>
     </article>
 
