@@ -21,7 +21,7 @@
       align-items: center;
     }
 
-    /* 1. BARRA PRETA NO TOPO (SEM TEXTO) */
+    /* BARRA PRETA NO TOPO */
     header {
       width: 100%;
       max-width: 420px;
@@ -53,13 +53,12 @@
       width: 100%;
     }
 
-    /* QUADRO DA CARTA */
+    /* QUADRO DA CARTA BASE */
     .uno-card {
       width: 130px;
       height: 190px;
       min-width: 130px;
       max-width: 130px;
-      background-color: #d71921;
       border: 3.5px solid #000000;
       border-radius: 16px;
       position: relative;
@@ -72,7 +71,16 @@
       flex-shrink: 0;
     }
 
-    /* CRUZES TODAS EM PÉ */
+    /* CORES DAS CARTAS */
+    .red-card {
+      background-color: #d71921; /* Vermelho UNO */
+    }
+
+    .blue-card {
+      background-color: #38b6ff; /* Azul Claro */
+    }
+
+    /* CRUZES EM PÉ */
     .card-corner {
       width: 18px;
       height: 18px;
@@ -91,7 +99,6 @@
 
     .bottom-right {
       align-self: flex-end;
-      /* Sem rotação para a cruz ficar em pé */
     }
 
     .card-center {
@@ -125,8 +132,10 @@
     .card-desc-box h2 {
       font-size: 1.1rem;
       margin-bottom: 6px;
-      color: #ff5252;
     }
+
+    .red-title { color: #ff5252; }
+    .blue-title { color: #38b6ff; }
 
     .card-desc-box p {
       font-size: 0.85rem;
@@ -172,8 +181,7 @@
     <article class="card-entry">
       <div class="card-top-row">
 
-        <!-- CARTA COM CRUZES EM PÉ -->
-        <div class="uno-card">
+        <div class="uno-card red-card">
           <div class="card-corner top-left">
             <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
           </div>
@@ -187,17 +195,45 @@
           </div>
         </div>
 
-        <!-- DESCRIÇÃO -->
         <div class="card-desc-box">
-          <h2>Cursed</h2>
+          <h2 class="red-title">Cursed</h2>
           <p>Dobra todas as cartas recebidas e toda rodada deve comprar uma carta.</p>
         </div>
       </div>
 
-      <!-- BUFFS / CARTA MELHORIA -->
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Cursed of World:</span> aplica o efeito a todos, menos a quem o jogou, além dos debuffs serem dobrados.</span>
+      </div>
+    </article>
+
+    <!-- CARTA 2: BLESSED -->
+    <article class="card-entry">
+      <div class="card-top-row">
+
+        <div class="uno-card blue-card">
+          <div class="card-corner top-left">
+            <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
+          </div>
+          
+          <div class="card-center">
+            <svg viewBox="0 0 24 24" class="center-icon"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
+          </div>
+          
+          <div class="card-corner bottom-right">
+            <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
+          </div>
+        </div>
+
+        <div class="card-desc-box">
+          <h2 class="blue-title">Blessed</h2>
+          <p>O jogador escolhe quem será abençoado, quem estiver abençoado compra o número de cartas pela metade, e não pode ter a vez pulada (caso seja jogada em um jogador amaldiçoado ela cortara o efeito).</p>
+        </div>
+      </div>
+
+      <div class="card-buff-box">
+        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
+        <span><span class="buff-name">Divine Blessed:</span> Não sofre efeito de nenhuma carta exceto por reset.</span>
       </div>
     </article>
 
