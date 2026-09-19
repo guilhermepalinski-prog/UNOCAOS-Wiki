@@ -130,6 +130,7 @@
     .blue-title { color: #38b6ff; }
     .green-title { color: #2ecc71; }
     .yellow-title { color: #ffe600; }
+    .cyan-title { color: #00f2fe; }
 
     .card-desc-box p {
       font-size: 0.85rem;
@@ -280,10 +281,10 @@
             </svg>
           </div>
 
-          <!-- CORRENTE PIXELADA NA DIAGONAL -->
+          <!-- CORRENTE PIXELADA NA OUTRA DIAGONAL (ROTATE +45°) -->
           <div class="card-center">
             <svg viewBox="0 0 28 28" class="center-icon" shape-rendering="crispEdges">
-              <g transform="rotate(-45 14 14)">
+              <g transform="rotate(45 14 14)">
                 <!-- Elo 1: Vermelho -->
                 <path fill="#d71921" fill-rule="evenodd" d="M 10 1 H 18 V 3 H 20 V 9 H 18 V 11 H 10 V 9 H 8 V 3 H 10 Z M 11 3 V 9 H 17 V 3 Z" />
                 <!-- Elo 2: Azul -->
@@ -315,6 +316,56 @@
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Emaranhado de Correntes:</span> agora você pode acorrentar vários jogadores com um limite de 3 correntes diferentes, ou seja, até 6 jogadores acorrentados.</span>
+      </div>
+    </article>
+
+    <!-- CARTA 5: ESPELHO -->
+    <article class="card-entry">
+      <div class="card-top-row">
+        <div class="uno-card white-card">
+          <div class="card-corner top-left">
+            <svg viewBox="0 0 20 20">
+              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
+              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
+              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
+              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
+            </svg>
+          </div>
+
+          <!-- ESPELHO OVAL CENTRAL -->
+          <div class="card-center">
+            <svg viewBox="0 0 24 24" class="center-icon">
+              <!-- Cabo do espelho -->
+              <path d="M 12 18 L 12 23" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Moldura externa do espelho -->
+              <ellipse cx="12" cy="10" rx="7.5" ry="9" fill="#d1d5db" stroke="#000000" stroke-width="2"/>
+              <!-- Vidro reflexivo -->
+              <ellipse cx="12" cy="10" rx="5.5" ry="7" fill="#38b6ff" stroke="#000000" stroke-width="1"/>
+              <!-- Reflexos no espelho -->
+              <path d="M 10 5.5 L 8.5 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M 13 4.5 L 10.5 15.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div class="card-corner bottom-right">
+            <svg viewBox="0 0 20 20">
+              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
+              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
+              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
+              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="card-desc-box">
+          <h2 class="cyan-title">Espelho</h2>
+          <p>Reflete o efeito da carta jogada contra você para quem o jogou.</p>
+        </div>
+      </div>
+
+      <div class="card-buff-box">
+        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
+        <span><span class="buff-name">Espelho Real:</span> o efeito de reflexão dura 3 turnos, e reflete o efeito duplicado e obrigatório.</span>
       </div>
     </article>
 
