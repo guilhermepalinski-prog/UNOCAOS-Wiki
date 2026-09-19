@@ -129,6 +129,7 @@
     .red-title { color: #ff5252; }
     .blue-title { color: #38b6ff; }
     .green-title { color: #2ecc71; }
+    .yellow-title { color: #ffe600; }
 
     .card-desc-box p {
       font-size: 0.85rem;
@@ -228,7 +229,6 @@
     <article class="card-entry">
       <div class="card-top-row">
         <div class="uno-card white-card">
-          <!-- QUADRADO 4 CORES NO CANTO -->
           <div class="card-corner top-left">
             <svg viewBox="0 0 20 20">
               <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
@@ -238,17 +238,13 @@
             </svg>
           </div>
 
-          <!-- FRASCO COM SOLUÇÃO VERDE -->
           <div class="card-center">
             <svg viewBox="0 0 24 24" class="center-icon">
-              <!-- Frasco -->
               <path d="M9 3h6v2h-1v3.5l4.5 7.8A3 3 0 0 1 15.9 21H8.1a3 3 0 0 1-2.6-4.7L10 8.5V5H9V3z" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <!-- Poção Verde interna -->
               <path d="M7 16.5l2.5-4.3h5l2.5 4.3a1 1 0 0 1-.9 1.5H7.9a1 1 0 0 1-.9-1.5z" fill="#2ecc71"/>
             </svg>
           </div>
 
-          <!-- QUADRADO 4 CORES NO CANTO INFERIOR -->
           <div class="card-corner bottom-right">
             <svg viewBox="0 0 20 20">
               <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
@@ -268,6 +264,55 @@
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Veneno vencido:</span> o efeito do veneno dura 5 turnos 1° turno após jogada compra 5 depois no 2° compra 4 e vai até chegar a 1.</span>
+      </div>
+    </article>
+
+    <!-- CARTA 4: CORRENTE -->
+    <article class="card-entry">
+      <div class="card-top-row">
+        <div class="uno-card white-card">
+          <div class="card-corner top-left">
+            <svg viewBox="0 0 20 20">
+              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
+              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
+              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
+              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
+            </svg>
+          </div>
+
+          <!-- CORRENTE COM AS 4 CORES DO UNO -->
+          <div class="card-center">
+            <svg viewBox="0 0 24 24" class="center-icon">
+              <!-- Elo Vermelho (Topo) -->
+              <rect x="8" y="2" width="8" height="6" rx="3" fill="none" stroke="#d71921" stroke-width="2.5"/>
+              <!-- Elo Azul (Meio Superior) -->
+              <rect x="8" y="7" width="8" height="6" rx="3" fill="none" stroke="#38b6ff" stroke-width="2.5"/>
+              <!-- Elo Verde (Meio Inferior) -->
+              <rect x="8" y="12" width="8" height="6" rx="3" fill="none" stroke="#2ecc71" stroke-width="2.5"/>
+              <!-- Elo Amarelo (Base) -->
+              <rect x="8" y="17" width="8" height="6" rx="3" fill="none" stroke="#ffe600" stroke-width="2.5"/>
+            </svg>
+          </div>
+
+          <div class="card-corner bottom-right">
+            <svg viewBox="0 0 20 20">
+              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
+              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
+              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
+              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="card-desc-box">
+          <h2 class="yellow-title">Corrente</h2>
+          <p>Interliga 2 jogadores de sua escolha, os jogadores escolhidos ficam acorrentados (ambos sofrem o efeito que um iria receber).</p>
+        </div>
+      </div>
+
+      <div class="card-buff-box">
+        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
+        <span><span class="buff-name">Emaranhado de Correntes:</span> agora você pode acorrentar vários jogadores com um limite de 3 correntes diferentes, ou seja, até 6 jogadores acorrentados.</span>
       </div>
     </article>
 
