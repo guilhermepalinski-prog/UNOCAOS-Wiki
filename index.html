@@ -19,6 +19,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
 
     /* BARRA PRETA NO TOPO */
@@ -31,12 +32,24 @@
       margin-bottom: 20px;
     }
 
+    /* CONTAINER RESPONSIVO (CELULAR / PC) */
     .wiki-container {
       width: 100%;
       max-width: 420px;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 25px;
+    }
+
+    /* REGRA PARA TELAS MAIORES (COMPUTADOR / TABLET) */
+    @media (min-width: 768px) {
+      header {
+        max-width: 900px;
+      }
+      .wiki-container {
+        max-width: 900px;
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     .card-entry {
@@ -109,6 +122,12 @@
       display: block;
     }
 
+    /* ÍCONE DO ESPELHO MAIOR */
+    .large-icon {
+      width: 68px;
+      height: 68px;
+    }
+
     /* QUADRO DA DESCRIÇÃO */
     .card-desc-box {
       flex: 1;
@@ -121,16 +140,12 @@
       border: 1px solid #444;
     }
 
+    /* NOME DE TODAS AS CARTAS EM AMARELO */
     .card-desc-box h2 {
       font-size: 1.1rem;
       margin-bottom: 6px;
+      color: #ffe600;
     }
-
-    .red-title { color: #ff5252; }
-    .blue-title { color: #38b6ff; }
-    .green-title { color: #2ecc71; }
-    .yellow-title { color: #ffe600; }
-    .cyan-title { color: #00f2fe; }
 
     .card-desc-box p {
       font-size: 0.85rem;
@@ -188,7 +203,7 @@
         </div>
 
         <div class="card-desc-box">
-          <h2 class="red-title">Cursed</h2>
+          <h2>Cursed</h2>
           <p>Dobra todas as cartas recebidas e toda rodada deve comprar uma carta.</p>
         </div>
       </div>
@@ -215,7 +230,7 @@
         </div>
 
         <div class="card-desc-box">
-          <h2 class="blue-title">Blessed</h2>
+          <h2>Blessed</h2>
           <p>O jogador escolhe quem será abençoado, quem estiver abençoado compra o número de cartas pela metade, e não pode ter a vez pulada (caso seja jogada em um jogador amaldiçoado ela cortara o efeito).</p>
         </div>
       </div>
@@ -257,7 +272,7 @@
         </div>
 
         <div class="card-desc-box">
-          <h2 class="green-title">Veneno</h2>
+          <h2>Veneno</h2>
           <p>Envenena um jogador de sua escolha, o jogador envenenado compra 3 cartas no primeiro turno após ser descartada, no segundo turno ele compra 2 e no terceiro turno compra 1.</p>
         </div>
       </div>
@@ -281,17 +296,12 @@
             </svg>
           </div>
 
-          <!-- CORRENTE PIXELADA NA OUTRA DIAGONAL (ROTATE +45°) -->
           <div class="card-center">
             <svg viewBox="0 0 28 28" class="center-icon" shape-rendering="crispEdges">
               <g transform="rotate(45 14 14)">
-                <!-- Elo 1: Vermelho -->
                 <path fill="#d71921" fill-rule="evenodd" d="M 10 1 H 18 V 3 H 20 V 9 H 18 V 11 H 10 V 9 H 8 V 3 H 10 Z M 11 3 V 9 H 17 V 3 Z" />
-                <!-- Elo 2: Azul -->
                 <path fill="#38b6ff" fill-rule="evenodd" d="M 10 7 H 18 V 9 H 20 V 15 H 18 V 17 H 10 V 15 H 8 V 9 H 10 Z M 11 9 V 15 H 17 V 9 Z" />
-                <!-- Elo 3: Verde -->
                 <path fill="#2ecc71" fill-rule="evenodd" d="M 10 13 H 18 V 15 H 20 V 21 H 18 V 23 H 10 V 21 H 8 V 15 H 10 Z M 11 15 V 21 H 17 V 15 Z" />
-                <!-- Elo 4: Amarelo -->
                 <path fill="#ffe600" fill-rule="evenodd" d="M 10 19 H 18 V 21 H 20 V 27 H 18 V 29 H 10 V 27 H 8 V 21 H 10 Z M 11 21 V 27 H 17 V 21 Z" />
               </g>
             </svg>
@@ -308,7 +318,7 @@
         </div>
 
         <div class="card-desc-box">
-          <h2 class="yellow-title">Corrente</h2>
+          <h2>Corrente</h2>
           <p>Interliga 2 jogadores de sua escolha, os jogadores escolhidos ficam acorrentados (ambos sofrem o efeito que um iria receber).</p>
         </div>
       </div>
@@ -332,18 +342,30 @@
             </svg>
           </div>
 
-          <!-- ESPELHO OVAL CENTRAL -->
+          <!-- ESPELHO DE BANHEIRO PIXELADO (MAIOR, SEM CABO) -->
           <div class="card-center">
-            <svg viewBox="0 0 24 24" class="center-icon">
-              <!-- Cabo do espelho -->
-              <path d="M 12 18 L 12 23" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
-              <!-- Moldura externa do espelho -->
-              <ellipse cx="12" cy="10" rx="7.5" ry="9" fill="#d1d5db" stroke="#000000" stroke-width="2"/>
-              <!-- Vidro reflexivo -->
-              <ellipse cx="12" cy="10" rx="5.5" ry="7" fill="#38b6ff" stroke="#000000" stroke-width="1"/>
-              <!-- Reflexos no espelho -->
-              <path d="M 10 5.5 L 8.5 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M 13 4.5 L 10.5 15.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <svg viewBox="0 0 24 24" class="center-icon large-icon" shape-rendering="crispEdges">
+              <!-- Suporte de parede no topo -->
+              <path fill="#555555" d="M 11 1 H 13 V 3 H 11 Z" />
+              <path fill="#888888" d="M 10 3 H 14 V 4 H 10 Z" />
+
+              <!-- Moldura Externa Escura -->
+              <path fill="#222222" d="M 6 4 H 18 V 5 H 20 V 19 H 18 V 20 H 6 V 19 H 4 V 5 H 6 Z" />
+              
+              <!-- Borda Prateada Interna -->
+              <path fill="#aaaaaa" d="M 6 5 H 18 V 6 H 19 V 18 H 18 V 19 H 6 V 18 H 5 V 6 H 6 Z" />
+
+              <!-- Vidro do Espelho (Azul Claro) -->
+              <path fill="#7dd3fc" d="M 6 6 H 18 V 18 H 6 Z" />
+
+              <!-- Brilhos Pixelados no Vidro (Branco) -->
+              <path fill="#ffffff" d="
+                M 15 7 H 17 V 8 H 15 Z
+                M 13 8 H 16 V 9 H 13 Z
+                M 10 11 H 14 V 12 H 10 Z
+                M 8 13 H 12 V 14 H 8 Z
+                M 7 15 H 9 V 16 H 7 Z
+              " />
             </svg>
           </div>
 
@@ -358,7 +380,7 @@
         </div>
 
         <div class="card-desc-box">
-          <h2 class="cyan-title">Espelho</h2>
+          <h2>Espelho</h2>
           <p>Reflete o efeito da carta jogada contra você para quem o jogou.</p>
         </div>
       </div>
