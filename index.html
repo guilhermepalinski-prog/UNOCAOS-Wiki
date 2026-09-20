@@ -5,184 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wiki - UNO Caótico</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+    body { background-color: #2e2e2e; color: #fff; padding: 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
 
-    body {
-      background-color: #2e2e2e;
-      color: #ffffff;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
+    header { width: 100%; max-width: 420px; height: 45px; background: #000; border-radius: 8px; margin-bottom: 20px; }
+    .wiki-container { width: 100%; max-width: 420px; display: grid; grid-template-columns: 1fr; gap: 25px; }
 
-    /* BARRA PRETA NO TOPO */
-    header {
-      width: 100%;
-      max-width: 420px;
-      height: 45px;
-      background-color: #000000;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-
-    /* CONTAINER RESPONSIVO (CELULAR / PC) */
-    .wiki-container {
-      width: 100%;
-      max-width: 420px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 25px;
-    }
-
-    /* REGRA PARA TELAS MAIORES (COMPUTADOR / TABLET) */
     @media (min-width: 768px) {
-      header {
-        max-width: 900px;
-      }
-      .wiki-container {
-        max-width: 900px;
-        grid-template-columns: repeat(2, 1fr);
-      }
+      header { max-width: 900px; }
+      .wiki-container { max-width: 900px; grid-template-columns: repeat(2, 1fr); }
     }
 
-    .card-entry {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-    }
+    .card-entry { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+    .card-top-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
 
-    .card-top-row {
-      display: flex;
-      gap: 12px;
-      align-items: stretch;
-      width: 100%;
-    }
-
-    /* QUADRO DA CARTA BASE */
+    /* CARTA BASE */
     .uno-card {
-      width: 130px;
-      height: 190px;
-      min-width: 130px;
-      max-width: 130px;
-      border: 3.5px solid #000000;
-      border-radius: 16px;
-      position: relative;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      overflow: hidden;
-      flex-shrink: 0;
+      width: 130px; height: 190px; border: 3.5px solid #000; border-radius: 16px;
+      position: relative; padding: 8px; display: flex; flex-direction: column;
+      justify-content: space-between; box-shadow: 0 4px 10px rgba(0,0,0,0.5); flex-shrink: 0;
     }
-
-    /* CORES DE FUNDO DAS CARTAS */
     .red-card { background-color: #d71921; }
     .blue-card { background-color: #38b6ff; }
     .white-card { background-color: #ffffff; }
 
-    /* ÍCONES DOS CANTOS */
-    .card-corner {
-      width: 18px;
-      height: 18px;
-      z-index: 2;
-    }
-
-    .card-corner svg {
-      width: 18px;
-      height: 18px;
-      display: block;
-    }
-
+    /* CANTOS E ÍCONES */
+    .card-corner { width: 18px; height: 18px; z-index: 2; }
+    .card-corner svg { width: 100%; height: 100%; display: block; }
     .top-left { align-self: flex-start; }
     .bottom-right { align-self: flex-end; }
+    .card-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .center-icon { width: 58px; height: 58px; display: block; }
+    .large-icon { width: 72px; height: 72px; }
 
-    /* ÍCONE DO CENTRO */
-    .card-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .center-icon {
-      width: 58px;
-      height: 58px;
-      display: block;
-    }
-
-    /* ÍCONE DO ESPELHO MAIOR */
-    .large-icon {
-      width: 72px;
-      height: 72px;
-    }
-
-    /* QUADRO DA DESCRIÇÃO */
+    /* DESCRIÇÃO E BUFFS */
     .card-desc-box {
-      flex: 1;
-      background-color: #1e1e24;
-      border-radius: 14px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      border: 1px solid #444;
+      flex: 1; background: #1e1e24; border-radius: 14px; padding: 12px;
+      display: flex; flex-direction: column; border: 1px solid #444;
     }
+    .card-desc-box h2 { font-size: 1.1rem; margin-bottom: 6px; color: #ffe600; }
+    .card-desc-box p { font-size: 0.85rem; line-height: 1.35; color: #d1d1d6; }
 
-    /* NOME DE TODAS AS CARTAS EM AMARELO */
-    .card-desc-box h2 {
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-      color: #ffe600;
-    }
-
-    .card-desc-box p {
-      font-size: 0.85rem;
-      line-height: 1.35;
-      color: #d1d1d6;
-    }
-
-    /* QUADRO DE BUFFS */
     .card-buff-box {
-      width: 100%;
-      background-color: #262030;
-      border-left: 5px solid #a855f7;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size: 0.85rem;
-      line-height: 1.35;
-      color: #e2d9f3;
-      border-top: 1px solid #3d2f50;
-      border-right: 1px solid #3d2f50;
-      border-bottom: 1px solid #3d2f50;
+      width: 100%; background: #262030; border-left: 5px solid #a855f7; border-radius: 12px;
+      padding: 10px 12px; font-size: 0.85rem; line-height: 1.35; color: #e2d9f3; border: 1px solid #3d2f50; border-left-width: 5px;
     }
-
-    .card-buff-box strong.label {
-      display: block;
-      color: #c084fc;
-      margin-bottom: 4px;
-    }
-
-    .buff-name {
-      color: #ff79c6;
-      font-weight: bold;
-    }
+    .card-buff-box strong.label { display: block; color: #c084fc; margin-bottom: 4px; }
+    .buff-name { color: #ff79c6; font-weight: bold; }
   </style>
 </head>
 <body>
 
-  <!-- BARRA PRETA NO TOPO -->
+  <!-- REUTILIZAÇÃO DE ÍCONES DE CANTO -->
+  <svg style="display: none;">
+    <g id="cross-black"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></g>
+    <g id="cross-yellow"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></g>
+    <g id="uno-4color">
+      <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
+      <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
+      <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
+      <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
+    </g>
+  </svg>
+
   <header></header>
 
   <main class="wiki-container">
@@ -191,23 +76,15 @@
     <article class="card-entry">
       <div class="card-top-row">
         <div class="uno-card red-card">
-          <div class="card-corner top-left">
-            <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
-          </div>
-          <div class="card-center">
-            <svg viewBox="0 0 24 24" class="center-icon"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
-          </div>
-          <div class="card-corner bottom-right">
-            <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></svg>
-          </div>
+          <div class="card-corner top-left"><svg viewBox="0 0 24 24"><use href="#cross-black"/></svg></div>
+          <div class="card-center"><svg viewBox="0 0 24 24" class="center-icon"><use href="#cross-black"/></svg></div>
+          <div class="card-corner bottom-right"><svg viewBox="0 0 24 24"><use href="#cross-black"/></svg></div>
         </div>
-
         <div class="card-desc-box">
           <h2>Cursed</h2>
           <p>Dobra todas as cartas recebidas e toda rodada deve comprar uma carta.</p>
         </div>
       </div>
-
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Cursed of World:</span> aplica o efeito a todos, menos a quem o jogou, além dos debuffs serem dobrados.</span>
@@ -218,23 +95,15 @@
     <article class="card-entry">
       <div class="card-top-row">
         <div class="uno-card blue-card">
-          <div class="card-corner top-left">
-            <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
-          </div>
-          <div class="card-center">
-            <svg viewBox="0 0 24 24" class="center-icon"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
-          </div>
-          <div class="card-corner bottom-right">
-            <svg viewBox="0 0 24 24"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></svg>
-          </div>
+          <div class="card-corner top-left"><svg viewBox="0 0 24 24"><use href="#cross-yellow"/></svg></div>
+          <div class="card-center"><svg viewBox="0 0 24 24" class="center-icon"><use href="#cross-yellow"/></svg></div>
+          <div class="card-corner bottom-right"><svg viewBox="0 0 24 24"><use href="#cross-yellow"/></svg></div>
         </div>
-
         <div class="card-desc-box">
           <h2>Blessed</h2>
           <p>O jogador escolhe quem será abençoado, quem estiver abençoado compra o número de cartas pela metade, e não pode ter a vez pulada (caso seja jogada em um jogador amaldiçoado ela cortara o efeito).</p>
         </div>
       </div>
-
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Divine Blessed:</span> Não sofre efeito de nenhuma carta exceto por reset.</span>
@@ -245,38 +114,20 @@
     <article class="card-entry">
       <div class="card-top-row">
         <div class="uno-card white-card">
-          <div class="card-corner top-left">
-            <svg viewBox="0 0 20 20">
-              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
-              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
-              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
-              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
-            </svg>
-          </div>
-
+          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
           <div class="card-center">
             <svg viewBox="0 0 24 24" class="center-icon">
-              <path d="M9 3h6v2h-1v3.5l4.5 7.8A3 3 0 0 1 15.9 21H8.1a3 3 0 0 1-2.6-4.7L10 8.5V5H9V3z" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 3h6v2h-1v3.5l4.5 7.8A3 3 0 0 1 15.9 21H8.1a3 3 0 0 1-2.6-4.7L10 8.5V5H9V3z" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M7 16.5l2.5-4.3h5l2.5 4.3a1 1 0 0 1-.9 1.5H7.9a1 1 0 0 1-.9-1.5z" fill="#2ecc71"/>
             </svg>
           </div>
-
-          <div class="card-corner bottom-right">
-            <svg viewBox="0 0 20 20">
-              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
-              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
-              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
-              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
-            </svg>
-          </div>
+          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
         </div>
-
         <div class="card-desc-box">
           <h2>Veneno</h2>
           <p>Envenena um jogador de sua escolha, o jogador envenenado compra 3 cartas no primeiro turno após ser descartada, no segundo turno ele compra 2 e no terceiro turno compra 1.</p>
         </div>
       </div>
-
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Veneno vencido:</span> o efeito do veneno dura 5 turnos 1° turno após jogada compra 5 depois no 2° compra 4 e vai até chegar a 1.</span>
@@ -287,15 +138,7 @@
     <article class="card-entry">
       <div class="card-top-row">
         <div class="uno-card white-card">
-          <div class="card-corner top-left">
-            <svg viewBox="0 0 20 20">
-              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
-              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
-              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
-              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
-            </svg>
-          </div>
-
+          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
           <div class="card-center">
             <svg viewBox="0 0 28 28" class="center-icon" shape-rendering="crispEdges">
               <g transform="rotate(45 14 14)">
@@ -306,23 +149,13 @@
               </g>
             </svg>
           </div>
-
-          <div class="card-corner bottom-right">
-            <svg viewBox="0 0 20 20">
-              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
-              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
-              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
-              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
-            </svg>
-          </div>
+          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
         </div>
-
         <div class="card-desc-box">
           <h2>Corrente</h2>
           <p>Interliga 2 jogadores de sua escolha, os jogadores escolhidos ficam acorrentados (ambos sofrem o efeito que um iria receber).</p>
         </div>
       </div>
-
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Emaranhado de Correntes:</span> agora você pode acorrentar vários jogadores com um limite de 3 correntes diferentes, ou seja, até 6 jogadores acorrentados.</span>
@@ -333,85 +166,84 @@
     <article class="card-entry">
       <div class="card-top-row">
         <div class="uno-card white-card">
-          <div class="card-corner top-left">
-            <svg viewBox="0 0 20 20">
-              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
-              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
-              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
-              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
-            </svg>
-          </div>
-
-          <!-- ESPELHO DE BANHEIRO OVAL PIXELADO (MAIOR, SEM CABO) -->
+          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
           <div class="card-center">
             <svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges">
-              <!-- Suporte de parede no topo -->
               <path fill="#555555" d="M 13 1 H 15 V 3 H 13 Z" />
               <path fill="#888888" d="M 12 3 H 16 V 4 H 12 Z" />
-
-              <!-- Moldura Externa Escura (Oval Pixelado) -->
-              <path fill="#222222" d="
-                M 10 4 H 18 V 5 H 10 Z
-                M 8 5 H 20 V 7 H 8 Z
-                M 6 7 H 22 V 10 H 6 Z
-                M 5 10 H 23 V 18 H 5 Z
-                M 6 18 H 22 V 21 H 6 Z
-                M 8 21 H 20 V 23 H 8 Z
-                M 10 23 H 18 V 24 H 10 Z
-              " />
-
-              <!-- Borda Prateada / Moldura Interna -->
-              <path fill="#aaaaaa" d="
-                M 11 5 H 17 V 6 H 11 Z
-                M 9 6 H 19 V 8 H 9 Z
-                M 7 8 H 21 V 10 H 7 Z
-                M 6 10 H 22 V 18 H 6 Z
-                M 7 18 H 21 V 20 H 7 Z
-                M 9 20 H 19 V 22 H 9 Z
-                M 11 22 H 17 V 23 H 11 Z
-              " />
-
-              <!-- Vidro do Espelho (Azul Claro) -->
-              <path fill="#7dd3fc" d="
-                M 12 6 H 16 V 7 H 12 Z
-                M 10 7 H 18 V 9 H 10 Z
-                M 8 9 H 20 V 11 H 8 Z
-                M 7 11 H 21 V 17 H 7 Z
-                M 8 17 H 20 V 19 H 8 Z
-                M 10 19 H 18 V 21 H 10 Z
-                M 12 21 H 16 V 22 H 12 Z
-              " />
-
-              <!-- Brilhos / Reflexos no Vidro (Branco) -->
-              <path fill="#ffffff" d="
-                M 14 8 H 16 V 9 H 14 Z
-                M 12 9 H 15 V 10 H 12 Z
-                M 10 12 H 14 V 13 H 10 Z
-                M 9 14 H 12 V 15 H 9 Z
-                M 8 16 H 10 V 17 H 8 Z
-              " />
+              <path fill="#222222" d="M 10 4 H 18 V 5 H 10 Z M 8 5 H 20 V 7 H 8 Z M 6 7 H 22 V 10 H 6 Z M 5 10 H 23 V 18 H 5 Z M 6 18 H 22 V 21 H 6 Z M 8 21 H 20 V 23 H 8 Z M 10 23 H 18 V 24 H 10 Z" />
+              <path fill="#aaaaaa" d="M 11 5 H 17 V 6 H 11 Z M 9 6 H 19 V 8 H 9 Z M 7 8 H 21 V 10 H 7 Z M 6 10 H 22 V 18 H 6 Z M 7 18 H 21 V 20 H 7 Z M 9 20 H 19 V 22 H 9 Z M 11 22 H 17 V 23 H 11 Z" />
+              <path fill="#7dd3fc" d="M 12 6 H 16 V 7 H 12 Z M 10 7 H 18 V 9 H 10 Z M 8 9 H 20 V 11 H 8 Z M 7 11 H 21 V 17 H 7 Z M 8 17 H 20 V 19 H 8 Z M 10 19 H 18 V 21 H 10 Z M 12 21 H 16 V 22 H 12 Z" />
+              <path fill="#ffffff" d="M 14 8 H 16 V 9 H 14 Z M 12 9 H 15 V 10 H 12 Z M 10 12 H 14 V 13 H 10 Z M 9 14 H 12 V 15 H 9 Z M 8 16 H 10 V 17 H 8 Z" />
             </svg>
           </div>
-
-          <div class="card-corner bottom-right">
-            <svg viewBox="0 0 20 20">
-              <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
-              <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
-              <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
-              <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
-            </svg>
-          </div>
+          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
         </div>
-
         <div class="card-desc-box">
           <h2>Espelho</h2>
           <p>Reflete o efeito da carta jogada contra você para quem o jogou.</p>
         </div>
       </div>
-
       <div class="card-buff-box">
         <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
         <span><span class="buff-name">Espelho Real:</span> o efeito de reflexão dura 3 turnos, e reflete o efeito duplicado e obrigatório.</span>
+      </div>
+    </article>
+
+    <!-- CARTA 6: SACRIFÍCIO -->
+    <article class="card-entry">
+      <div class="card-top-row">
+        <div class="uno-card white-card">
+          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
+          <div class="card-center">
+            <svg viewBox="0 0 28 28" class="center-icon large-icon">
+              <!-- Círculo ao redor -->
+              <circle cx="14" cy="14" r="11" fill="none" stroke="#ffe600" stroke-width="1.8"/>
+              <!-- Estrela de 5 pontas conectada (forma o pentágono internamente) -->
+              <path d="M 14 3 L 20.5 22.9 L 3.5 10.6 L 24.5 10.6 L 7.5 22.9 Z" fill="none" stroke="#ffe600" stroke-width="1.8" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
+        </div>
+        <div class="card-desc-box">
+          <h2>Sacrifício</h2>
+          <p>Você compra 10 mas não sofre efeito de nada.</p>
+        </div>
+      </div>
+      <div class="card-buff-box">
+        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
+        <span><span class="buff-name">Sacrifício Final:</span> você divide as 10 cartas com alguém e só compra 5, mas só você recebe o efeito.</span>
+      </div>
+    </article>
+
+    <!-- CARTA 7: SACRIFÍCIO SANGRENTO -->
+    <article class="card-entry">
+      <div class="card-top-row">
+        <div class="uno-card white-card">
+          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
+          <div class="card-center">
+            <svg viewBox="0 0 28 28" class="center-icon large-icon">
+              <!-- Estrela de 8 pontas vermelha externa (Quadrado + Losango) -->
+              <rect x="3" y="3" width="22" height="22" fill="none" stroke="#d71921" stroke-width="1.5"/>
+              <rect x="3" y="3" width="22" height="22" fill="none" stroke="#d71921" stroke-width="1.5" transform="rotate(45 14 14)"/>
+              
+              <!-- Símbolo de Sacrifício menor no centro -->
+              <g transform="translate(14 14) scale(0.55) translate(-14 -14)">
+                <circle cx="14" cy="14" r="11" fill="none" stroke="#ffe600" stroke-width="2.5"/>
+                <path d="M 14 3 L 20.5 22.9 L 3.5 10.6 L 24.5 10.6 L 7.5 22.9 Z" fill="none" stroke="#ffe600" stroke-width="2.5" stroke-linejoin="miter"/>
+              </g>
+            </svg>
+          </div>
+          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
+        </div>
+        <div class="card-desc-box">
+          <h2>Sacrifício Sangrento</h2>
+          <p>Você compra 5 cartas e a cada rodada compra 1, mas você não sofre efeito de nada e quem você escolher compra 10.</p>
+        </div>
+      </div>
+      <div class="card-buff-box">
+        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
+        <span><span class="buff-name">Último Recurso:</span> Você compra 5 cartas, mas sem o debuff de comprar mais 1 a cada rodada e quem você escolher compra 10 e não poderá jogar em seu próximo turno.</span>
       </div>
     </article>
 
