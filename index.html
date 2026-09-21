@@ -277,14 +277,9 @@
           <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
           <div class="card-center">
             <svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges">
-              <!-- Haste da bandeira -->
               <rect x="3" y="4" width="2" height="20" fill="#333333"/>
-              <!-- Tecido da Bandeira (Branca com borda fina) -->
               <rect x="5" y="5" width="20" height="13" fill="#ffffff" stroke="#222222" stroke-width="1"/>
-              <!-- Símbolo estilo Paraná (Baixa Resolução / Pixel Art) -->
-              <!-- Globo azul central -->
               <rect x="13" y="9" width="4" height="5" fill="#2563eb"/>
-              <!-- Ramos verdes laterais -->
               <rect x="11" y="8" width="1" height="7" fill="#16a34a"/>
               <rect x="18" y="8" width="1" height="7" fill="#16a34a"/>
               <rect x="10" y="10" width="1" height="3" fill="#16a34a"/>
@@ -310,30 +305,22 @@
         <div class="uno-card white-card">
           <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
           <div class="card-center">
-            <!-- RÉPLICA DO DESENHO GLITCH DA IMAGEM -->
+            <!-- ÍCONE DE CARTA BUGADA (GLITCH CROMÁTICO COM FATIAS DESLOCADAS) -->
             <svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges">
-              <!-- Linhas verticais e hastes do circuito glitch -->
-              <path stroke="#111111" stroke-width="1.2" fill="none" d="
-                M 8 4 V 24
-                M 13 3 V 25
-                M 19 4 V 23
-                M 23 7 V 20
-                M 8 10 H 13
-                M 13 15 H 19
-                M 19 12 H 23
-                M 8 20 H 13
-              "/>
-              <!-- Quadrados, nós e formas da foto -->
-              <rect x="6" y="6" width="3" height="3" fill="#111111"/>
-              <rect x="11" y="13" width="4" height="4" fill="none" stroke="#111111" stroke-width="1.2"/>
-              <rect x="17" y="7" width="3" height="3" fill="#111111"/>
-              <rect x="18" y="17" width="3" height="3" fill="none" stroke="#111111" stroke-width="1"/>
-              <!-- Detalhes em ponta/seta do desenho -->
-              <path d="M 13 25 L 11 22 H 15 Z" fill="#111111"/>
-              <path d="M 8 4 L 6 7 H 10 Z" fill="#111111"/>
-              <!-- Elementos com cores de glitch sutis (verde/vermelho) -->
-              <rect x="10" y="18" width="2" height="2" fill="#d71921"/>
-              <rect x="21" y="10" width="2" height="2" fill="#2ecc71"/>
+              <!-- Camada Cyan Deslocada -->
+              <rect x="4" y="4" width="14" height="18" rx="2" fill="none" stroke="#00f2fe" stroke-width="1.2" opacity="0.8"/>
+              <!-- Camada Magenta Deslocada -->
+              <rect x="10" y="6" width="14" height="18" rx="2" fill="none" stroke="#ff0055" stroke-width="1.2" opacity="0.8"/>
+              <!-- Carta Principal Dividida em Fatias Bugadas -->
+              <path d="M 7 5 H 20 V 10 H 5 V 7 Z" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+              <path d="M 10 11 H 23 V 17 H 9 V 11 Z" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+              <path d="M 5 18 H 18 V 23 H 7 V 18 Z" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+              <!-- Pixels de Ruído / Artefatos -->
+              <rect x="4" y="9" width="4" height="2" fill="#00f2fe"/>
+              <rect x="19" y="14" width="3" height="2" fill="#ff0055"/>
+              <rect x="12" y="7" width="2" height="2" fill="#000000"/>
+              <rect x="14" y="19" width="3" height="2" fill="#00f2fe"/>
+              <rect x="8" y="15" width="2" height="3" fill="#ff0055"/>
             </svg>
           </div>
           <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
@@ -355,14 +342,21 @@
         <div class="uno-card white-card">
           <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
           <div class="card-center">
+            <!-- ÍCONE DE FLECHA DE ARCO (PONTA, HASTE E PENAS) -->
             <svg viewBox="0 0 28 28" class="center-icon large-icon">
-              <!-- Flecha robusta diagonal (45 deg) branca com detalhes pretos e contorno roxo claro -->
               <g transform="rotate(45 14 14)">
                 <!-- Contorno Roxo Claro Externo -->
-                <path d="M 14 3 L 23 12 H 18 V 24 H 10 V 12 H 5 Z" fill="#ffffff" stroke="#c084fc" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M 14 2 L 21 10 H 16 V 20 L 20 24 H 16.5 L 14 21.5 L 11.5 24 H 8 L 12 20 V 10 H 7 Z" fill="#ffffff" stroke="#c084fc" stroke-width="2" stroke-linejoin="miter"/>
                 <!-- Borda Preta Interna -->
-                <path d="M 14 3 L 23 12 H 18 V 24 H 10 V 12 H 5 Z" fill="#ffffff" stroke="#000000" stroke-width="1" stroke-linejoin="round"/>
+                <path d="M 14 2 L 21 10 H 16 V 20 L 20 24 H 16.5 L 14 21.5 L 11.5 24 H 8 L 12 20 V 10 H 7 Z" fill="none" stroke="#000000" stroke-width="1" stroke-linejoin="miter"/>
                 <!-- Linha/Detalhe Central Preto -->
-                <line x1="14" y1="7" x2="14" y2="21" stroke="#000000" stroke-width="1.2" stroke-linecap="round"/>
+                <line x1="14" y1="5" x2="14" y2="21" stroke="#000000" stroke-width="1"/>
               </g>
-            </
+            </svg>
+          </div>
+          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
+        </div>
+        <div class="card-desc-box">
+          <h2>Flecha</h2>
+          <p>Quando jogada, um novo evento começa, todas as cartas jogadas a
+  
