@@ -7,7 +7,6 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
     body { background-color: #2e2e2e; color: #fff; padding: 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-
     header { width: 100%; max-width: 420px; height: 45px; background: #000; border-radius: 8px; margin-bottom: 20px; }
     .wiki-container { width: 100%; max-width: 420px; display: grid; grid-template-columns: 1fr; gap: 25px; }
 
@@ -19,7 +18,6 @@
     .card-entry { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .card-top-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
 
-    /* CARTA BASE */
     .uno-card {
       width: 130px; height: 190px; border: 3.5px solid #000; border-radius: 16px;
       position: relative; padding: 8px; display: flex; flex-direction: column;
@@ -29,7 +27,6 @@
     .blue-card { background-color: #38b6ff; }
     .white-card { background-color: #ffffff; }
 
-    /* CANTOS E ÍCONES */
     .card-corner { width: 18px; height: 18px; z-index: 2; }
     .card-corner svg { width: 100%; height: 100%; display: block; }
     .top-left { align-self: flex-start; }
@@ -38,7 +35,6 @@
     .center-icon { width: 58px; height: 58px; display: block; }
     .large-icon { width: 72px; height: 72px; }
 
-    /* DESCRIÇÃO E BUFFS */
     .card-desc-box {
       flex: 1; background: #1e1e24; border-radius: 14px; padding: 12px;
       display: flex; flex-direction: column; border: 1px solid #444;
@@ -56,18 +52,14 @@
 </head>
 <body>
 
-  <!-- REUTILIZAÇÃO DE ÍCONES DE CANTO E SÍMBOLOS -->
+  <!-- BIBLIOTECA DE ÍCONES REAPROVEITÁVEIS -->
   <svg style="display: none;">
     <g id="cross-black"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#000000"/></g>
     <g id="cross-yellow"><path d="M 10 2 H 14 V 6 H 21 V 10 H 14 V 22 H 10 V 10 H 3 V 6 H 10 Z" fill="#ffe600"/></g>
     <g id="uno-4color">
-      <rect x="0" y="0" width="10" height="10" fill="#d71921"/>
-      <rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
-      <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/>
-      <rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
+      <rect x="0" y="0" width="10" height="10" fill="#d71921"/><rect x="10" y="0" width="10" height="10" fill="#38b6ff"/>
+      <rect x="0" y="10" width="10" height="10" fill="#2ecc71"/><rect x="10" y="10" width="10" height="10" fill="#ffe600"/>
     </g>
-
-    <!-- SÍMBOLO SACRIFÍCIO -->
     <g id="pentagram-symbol">
       <circle cx="14" cy="14" r="10.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
       <path d="M 14 3.5 L 20.17 22.49 L 4.01 10.76 L 23.99 10.76 L 7.83 22.49 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter"/>
@@ -75,289 +67,98 @@
   </svg>
 
   <header></header>
+  <main class="wiki-container" id="wiki-container"></main>
 
-  <main class="wiki-container">
+  <script>
+    const cards = [
+      {
+        name: "Cursed", bg: "red-card", corner: "#cross-black",
+        centerHtml: '<svg viewBox="0 0 24 24" class="center-icon"><use href="#cross-black"/></svg>',
+        desc: "Dobra todas as cartas recebidas e toda rodada deve comprar uma carta.",
+        buffName: "Cursed of World:", buffDesc: "aplica o efeito a todos, menos a quem o jogou, além dos debuffs serem dobrados."
+      },
+      {
+        name: "Blessed", bg: "blue-card", corner: "#cross-yellow",
+        centerHtml: '<svg viewBox="0 0 24 24" class="center-icon"><use href="#cross-yellow"/></svg>',
+        desc: "O jogador escolhe quem será abençoado, quem estiver abençoado compra o número de cartas pela metade, e não pode ter a vez pulada (caso seja jogada em um jogador amaldiçoado ela cortara o efeito).",
+        buffName: "Divine Blessed:", buffDesc: "Não sofre efeito de nenhuma carta exceto por reset."
+      },
+      {
+        name: "Veneno", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 24 24" class="center-icon"><path d="M9 3h6v2h-1v3.5l4.5 7.8A3 3 0 0 1 15.9 21H8.1a3 3 0 0 1-2.6-4.7L10 8.5V5H9V3z" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 16.5l2.5-4.3h5l2.5 4.3a1 1 0 0 1-.9 1.5H7.9a1 1 0 0 1-.9-1.5z" fill="#2ecc71"/></svg>',
+        desc: "Envenena um jogador de sua escolha, o jogador envenenado compra 3 cartas no primeiro turno após ser descartada, no segundo turno ele compra 2 e no terceiro turno compra 1.",
+        buffName: "Veneno vencido:", buffDesc: "o efeito do veneno dura 5 turnos 1° turno após jogada compra 5 depois no 2° compra 4 e vai até chegar a 1."
+      },
+      {
+        name: "Corrente", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon" shape-rendering="crispEdges"><g transform="rotate(45 14 14)"><path fill="#d71921" fill-rule="evenodd" d="M 10 1 H 18 V 3 H 20 V 9 H 18 V 11 H 10 V 9 H 8 V 3 H 10 Z M 11 3 V 9 H 17 V 3 Z" /><path fill="#38b6ff" fill-rule="evenodd" d="M 10 7 H 18 V 9 H 20 V 15 H 18 V 17 H 10 V 15 H 8 V 9 H 10 Z M 11 9 V 15 H 17 V 9 Z" /><path fill="#2ecc71" fill-rule="evenodd" d="M 10 13 H 18 V 15 H 20 V 21 H 18 V 23 H 10 V 21 H 8 V 15 H 10 Z M 11 15 V 21 H 17 V 15 Z" /><path fill="#ffe600" fill-rule="evenodd" d="M 10 19 H 18 V 21 H 20 V 27 H 18 V 29 H 10 V 27 H 8 V 21 H 10 Z M 11 21 V 27 H 17 V 21 Z" /></g></svg>',
+        desc: "Interliga 2 jogadores de sua escolha, os jogadores escolhidos ficam acorrentados (ambos sofrem o efeito que um iria receber).",
+        buffName: "Emaranhado de Correntes:", buffDesc: "agora você pode acorrentar vários jogadores com um limite de 3 correntes diferentes, ou seja, até 6 jogadores acorrentados."
+      },
+      {
+        name: "Espelho", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges"><path fill="#555555" d="M 13 1 H 15 V 3 H 13 Z" /><path fill="#888888" d="M 12 3 H 16 V 4 H 12 Z" /><path fill="#222222" d="M 10 4 H 18 V 5 H 10 Z M 8 5 H 20 V 7 H 8 Z M 6 7 H 22 V 10 H 6 Z M 5 10 H 23 V 18 H 5 Z M 6 18 H 22 V 21 H 6 Z M 8 21 H 20 V 23 H 8 Z M 10 23 H 18 V 24 H 10 Z" /><path fill="#aaaaaa" d="M 11 5 H 17 V 6 H 11 Z M 9 6 H 19 V 8 H 9 Z M 7 8 H 21 V 10 H 7 Z M 6 10 H 22 V 18 H 6 Z M 7 18 H 21 V 20 H 7 Z M 9 20 H 19 V 22 H 9 Z M 11 22 H 17 V 23 H 11 Z" /><path fill="#7dd3fc" d="M 12 6 H 16 V 7 H 12 Z M 10 7 H 18 V 9 H 10 Z M 8 9 H 20 V 11 H 8 Z M 7 11 H 21 V 17 H 7 Z M 8 17 H 20 V 19 H 8 Z M 10 19 H 18 V 21 H 10 Z M 12 21 H 16 V 22 H 12 Z" /><path fill="#ffffff" d="M 14 8 H 16 V 9 H 14 Z M 12 9 H 15 V 10 H 12 Z M 10 12 H 14 V 13 H 10 Z M 9 14 H 12 V 15 H 9 Z M 8 16 H 10 V 17 H 8 Z" /></svg>',
+        desc: "Reflete o efeito da carta jogada contra você para quem o jogou.",
+        buffName: "Espelho Real:", buffDesc: "o efeito de reflexão dura 3 turnos, e reflete o efeito duplicado e obrigatório."
+      },
+      {
+        name: "Sacrifício", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon large-icon" style="color: #ffe600;"><use href="#pentagram-symbol"/></svg>',
+        desc: "Você compra 10 mas não sofre efeito de nada.",
+        buffName: "Sacrifício Final:", buffDesc: "você divide as 10 cartas com alguém e só compra 5, mas só você recebe o efeito."
+      },
+      {
+        name: "Sacrifício Sangrento", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon large-icon"><rect x="5.5" y="5.5" width="17" height="17" fill="none" stroke="#d71921" stroke-width="1.5"/><rect x="5.5" y="5.5" width="17" height="17" fill="none" stroke="#d71921" stroke-width="1.5" transform="rotate(45 14 14)"/><g transform="translate(14 14) scale(0.52) translate(-14 -14)" style="color: #d71921;"><use href="#pentagram-symbol"/></g></svg>',
+        desc: "Você compra 5 cartas e a cada rodada compra 1, mas você não sofre efeito de nada e quem você escolher compra 10.",
+        buffName: "Último Recurso:", buffDesc: "Você compra 5 cartas, mas sem o debuff de comprar mais 1 a cada rodada e quem você escolher compra 10 e não poderá jogar em seu próximo turno."
+      },
+      {
+        name: "No Mercy", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon large-icon"><text x="14" y="11" font-family="\'Impact\', sans-serif" font-weight="900" font-size="7.5" text-anchor="middle" fill="#000" stroke="#d71921" stroke-width="0.8" paint-order="stroke fill">NO</text><text x="14" y="20" font-family="\'Impact\', sans-serif" font-weight="900" font-size="7.5" text-anchor="middle" fill="#000" stroke="#d71921" stroke-width="0.8" paint-order="stroke fill">MERCY</text></svg>',
+        desc: "Qualquer jogador acima de 25 cartas é automaticamente eliminado.",
+        buffName: "Verdadeiro No Mercy:", buffDesc: "Além do limite de cartas o jogador com mais cartas é eliminado."
+      },
+      {
+        name: "Democracia", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges"><rect x="3" y="4" width="2" height="20" fill="#333333"/><rect x="5" y="5" width="20" height="13" fill="#ffffff" stroke="#222222" stroke-width="1"/><rect x="13" y="9" width="4" height="5" fill="#2563eb"/><rect x="11" y="8" width="1" height="7" fill="#16a34a"/><rect x="18" y="8" width="1" height="7" fill="#16a34a"/><rect x="10" y="10" width="1" height="3" fill="#16a34a"/><rect x="19" y="10" width="1" height="3" fill="#16a34a"/></svg>',
+        desc: "Começa uma eleição, quem tirar a maior carta de número ganha e vira o presidente, o presidente divide todas as cartas que comprar com todos, ou seja o presidente não compra.",
+        buffName: "Democracia Corrupta:", buffDesc: "Você vira o presidente a força, e todas que você comprar são Divididas em dobro."
+      },
+      {
+        name: "Glitch", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges"><rect x="5" y="3" width="13" height="20" rx="1.5" fill="none" stroke="#a855f7" stroke-width="1.2" opacity="0.85"/><rect x="10" y="5" width="13" height="20" rx="1.5" fill="none" stroke="#ff79c6" stroke-width="1.2" opacity="0.85"/><path d="M 7 4 H 20 V 9 H 6 V 6 Z" fill="#000000" stroke="#a855f7" stroke-width="0.8"/><path d="M 10 10 H 22 V 16 H 9 V 10 Z" fill="#ffffff" stroke="#000000" stroke-width="1"/><path d="M 6 17 H 18 V 23 H 7 V 17 Z" fill="#000000" stroke="#ff79c6" stroke-width="0.8"/><rect x="4" y="8" width="3" height="2" fill="#a855f7"/><rect x="19" y="13" width="4" height="2" fill="#ff79c6"/><rect x="11" y="18" width="3" height="2" fill="#2ecc71"/><rect x="15" y="6" width="2" height="2" fill="#2ecc71"/><rect x="7" y="14" width="2" height="2" fill="#000000"/><rect x="18" y="21" width="3" height="2" fill="#a855f7"/></svg>',
+        desc: "Durante 3 turnos você não gasta suas cartas, mas elas ainda aplicam o efeito, além disso os efeitos que você receber te atravessam e vão para o próximo jogador.",
+        buffName: "Falha de Contagem:", buffDesc: "Nesses 3 turnos, além de não gastar as cartas e não sofrer efeitos, os efeitos das cartas são como você tivesse jogado duas da mesma carta."
+      },
+      {
+        name: "Flecha", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon large-icon"><g transform="rotate(45 14 14)"><path d="M 14 2 L 21 10 H 16 V 20 L 20 24 H 16.5 L 14 21.5 L 11.5 24 H 8 L 12 20 V 10 H 7 Z" fill="#ffffff" stroke="#c084fc" stroke-width="2" stroke-linejoin="miter"/><path d="M 14 2 L 21 10 H 16 V 20 L 20 24 H 16.5 L 14 21.5 L 11.5 24 H 8 L 12 20 V 10 H 7 Z" fill="none" stroke="#000000" stroke-width="1" stroke-linejoin="miter"/><line x1="14" y1="5" x2="14" y2="21" stroke="#000000" stroke-width="1"/></g></svg>',
+        desc: "Quando jogada, um novo evento começa, todas as cartas jogadas após você ter jogado Flecha, não tem efeito mas quando for sua vez novamente você joga uma carta e escolhe alguém, quem você escolher sofre o efeito de todas as cartas que foram jogadas em cima de Flecha.",
+        buffName: "Flecha Dupla:", buffDesc: "Você escolhe dois jogadores para sofrerem os efeitos."
+      }
+    ];
 
-    <!-- CARTA 1: CURSED -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card red-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 24 24"><use href="#cross-black"/></svg></div>
-          <div class="card-center"><svg viewBox="0 0 24 24" class="center-icon"><use href="#cross-black"/></svg></div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 24 24"><use href="#cross-black"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Cursed</h2>
-          <p>Dobra todas as cartas recebidas e toda rodada deve comprar uma carta.</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Cursed of World:</span> aplica o efeito a todos, menos a quem o jogou, além dos debuffs serem dobrados.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 2: BLESSED -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card blue-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 24 24"><use href="#cross-yellow"/></svg></div>
-          <div class="card-center"><svg viewBox="0 0 24 24" class="center-icon"><use href="#cross-yellow"/></svg></div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 24 24"><use href="#cross-yellow"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Blessed</h2>
-          <p>O jogador escolhe quem será abençoado, quem estiver abençoado compra o número de cartas pela metade, e não pode ter a vez pulada (caso seja jogada em um jogador amaldiçoado ela cortara o efeito).</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Divine Blessed:</span> Não sofre efeito de nenhuma carta exceto por reset.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 3: VENENO -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <svg viewBox="0 0 24 24" class="center-icon">
-              <path d="M9 3h6v2h-1v3.5l4.5 7.8A3 3 0 0 1 15.9 21H8.1a3 3 0 0 1-2.6-4.7L10 8.5V5H9V3z" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M7 16.5l2.5-4.3h5l2.5 4.3a1 1 0 0 1-.9 1.5H7.9a1 1 0 0 1-.9-1.5z" fill="#2ecc71"/>
-            </svg>
+    const container = document.getElementById('wiki-container');
+    container.innerHTML = cards.map(c => `
+      <article class="card-entry">
+        <div class="card-top-row">
+          <div class="uno-card ${c.bg}">
+            <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="${c.corner}"/></svg></div>
+            <div class="card-center">${c.centerHtml}</div>
+            <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="${c.corner}"/></svg></div>
           </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Veneno</h2>
-          <p>Envenena um jogador de sua escolha, o jogador envenenado compra 3 cartas no primeiro turno após ser descartada, no segundo turno ele compra 2 e no terceiro turno compra 1.</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Veneno vencido:</span> o efeito do veneno dura 5 turnos 1° turno após jogada compra 5 depois no 2° compra 4 e vai até chegar a 1.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 4: CORRENTE -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <svg viewBox="0 0 28 28" class="center-icon" shape-rendering="crispEdges">
-              <g transform="rotate(45 14 14)">
-                <path fill="#d71921" fill-rule="evenodd" d="M 10 1 H 18 V 3 H 20 V 9 H 18 V 11 H 10 V 9 H 8 V 3 H 10 Z M 11 3 V 9 H 17 V 3 Z" />
-                <path fill="#38b6ff" fill-rule="evenodd" d="M 10 7 H 18 V 9 H 20 V 15 H 18 V 17 H 10 V 15 H 8 V 9 H 10 Z M 11 9 V 15 H 17 V 9 Z" />
-                <path fill="#2ecc71" fill-rule="evenodd" d="M 10 13 H 18 V 15 H 20 V 21 H 18 V 23 H 10 V 21 H 8 V 15 H 10 Z M 11 15 V 21 H 17 V 15 Z" />
-                <path fill="#ffe600" fill-rule="evenodd" d="M 10 19 H 18 V 21 H 20 V 27 H 18 V 29 H 10 V 27 H 8 V 21 H 10 Z M 11 21 V 27 H 17 V 21 Z" />
-              </g>
-            </svg>
+          <div class="card-desc-box">
+            <h2>${c.name}</h2>
+            <p>${c.desc}</p>
           </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
         </div>
-        <div class="card-desc-box">
-          <h2>Corrente</h2>
-          <p>Interliga 2 jogadores de sua escolha, os jogadores escolhidos ficam acorrentados (ambos sofrem o efeito que um iria receber).</p>
+        <div class="card-buff-box">
+          <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
+          <span><span class="buff-name">${c.buffName}</span> ${c.buffDesc}</span>
         </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Emaranhado de Correntes:</span> agora você pode acorrentar vários jogadores com um limite de 3 correntes diferentes, ou seja, até 6 jogadores acorrentados.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 5: ESPELHO -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges">
-              <path fill="#555555" d="M 13 1 H 15 V 3 H 13 Z" />
-              <path fill="#888888" d="M 12 3 H 16 V 4 H 12 Z" />
-              <path fill="#222222" d="M 10 4 H 18 V 5 H 10 Z M 8 5 H 20 V 7 H 8 Z M 6 7 H 22 V 10 H 6 Z M 5 10 H 23 V 18 H 5 Z M 6 18 H 22 V 21 H 6 Z M 8 21 H 20 V 23 H 8 Z M 10 23 H 18 V 24 H 10 Z" />
-              <path fill="#aaaaaa" d="M 11 5 H 17 V 6 H 11 Z M 9 6 H 19 V 8 H 9 Z M 7 8 H 21 V 10 H 7 Z M 6 10 H 22 V 18 H 6 Z M 7 18 H 21 V 20 H 7 Z M 9 20 H 19 V 22 H 9 Z M 11 22 H 17 V 23 H 11 Z" />
-              <path fill="#7dd3fc" d="M 12 6 H 16 V 7 H 12 Z M 10 7 H 18 V 9 H 10 Z M 8 9 H 20 V 11 H 8 Z M 7 11 H 21 V 17 H 7 Z M 8 17 H 20 V 19 H 8 Z M 10 19 H 18 V 21 H 10 Z M 12 21 H 16 V 22 H 12 Z" />
-              <path fill="#ffffff" d="M 14 8 H 16 V 9 H 14 Z M 12 9 H 15 V 10 H 12 Z M 10 12 H 14 V 13 H 10 Z M 9 14 H 12 V 15 H 9 Z M 8 16 H 10 V 17 H 8 Z" />
-            </svg>
-          </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Espelho</h2>
-          <p>Reflete o efeito da carta jogada contra você para quem o jogou.</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Espelho Real:</span> o efeito de reflexão dura 3 turnos, e reflete o efeito duplicado e obrigatório.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 6: SACRIFÍCIO -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <svg viewBox="0 0 28 28" class="center-icon large-icon" style="color: #ffe600;">
-              <use href="#pentagram-symbol"/>
-            </svg>
-          </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Sacrifício</h2>
-          <p>Você compra 10 mas não sofre efeito de nada.</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Sacrifício Final:</span> você divide as 10 cartas com alguém e só compra 5, mas só você recebe o efeito.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 7: SACRIFÍCIO SANGRENTO -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <svg viewBox="0 0 28 28" class="center-icon large-icon">
-              <rect x="5.5" y="5.5" width="17" height="17" fill="none" stroke="#d71921" stroke-width="1.5"/>
-              <rect x="5.5" y="5.5" width="17" height="17" fill="none" stroke="#d71921" stroke-width="1.5" transform="rotate(45 14 14)"/>
-              <g transform="translate(14 14) scale(0.52) translate(-14 -14)" style="color: #d71921;">
-                <use href="#pentagram-symbol"/>
-              </g>
-            </svg>
-          </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Sacrifício Sangrento</h2>
-          <p>Você compra 5 cartas e a cada rodada compra 1, mas você não sofre efeito de nada e quem você escolher compra 10.</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Último Recurso:</span> Você compra 5 cartas, mas sem o debuff de comprar mais 1 a cada rodada e quem você escolher compra 10 e não poderá jogar em seu próximo turno.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 8: NO MERCY -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <svg viewBox="0 0 28 28" class="center-icon large-icon">
-              <text x="14" y="11" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="7.5" text-anchor="middle" fill="#000" stroke="#d71921" stroke-width="0.8" paint-order="stroke fill">NO</text>
-              <text x="14" y="20" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="7.5" text-anchor="middle" fill="#000" stroke="#d71921" stroke-width="0.8" paint-order="stroke fill">MERCY</text>
-            </svg>
-          </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>No Mercy</h2>
-          <p>Qualquer jogador acima de 25 cartas é automaticamente eliminado.</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Verdadeiro No Mercy:</span> Além do limite de cartas o jogador com mais cartas é eliminado.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 9: DEMOCRACIA -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges">
-              <rect x="3" y="4" width="2" height="20" fill="#333333"/>
-              <rect x="5" y="5" width="20" height="13" fill="#ffffff" stroke="#222222" stroke-width="1"/>
-              <rect x="13" y="9" width="4" height="5" fill="#2563eb"/>
-              <rect x="11" y="8" width="1" height="7" fill="#16a34a"/>
-              <rect x="18" y="8" width="1" height="7" fill="#16a34a"/>
-              <rect x="10" y="10" width="1" height="3" fill="#16a34a"/>
-              <rect x="19" y="10" width="1" height="3" fill="#16a34a"/>
-            </svg>
-          </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Democracia</h2>
-          <p>Começa uma eleição, quem tirar a maior carta de número ganha e vira o presidente, o presidente divide todas as cartas que comprar com todos, ou seja o presidente não compra.</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Democracia Corrupta:</span> Você vira o presidente a força, e todas que você comprar são Divididas em dobro.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 10: GLITCH -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <!-- ÍCONE DE CARTA BUGADA RETANGULAR (PRETO, ROXO, ROSA E VERDE) -->
-            <svg viewBox="0 0 28 28" class="center-icon large-icon" shape-rendering="crispEdges">
-              <!-- Sombra Glitch Roxa deslocada -->
-              <rect x="5" y="3" width="13" height="20" rx="1.5" fill="none" stroke="#a855f7" stroke-width="1.2" opacity="0.85"/>
-              <!-- Sombra Glitch Rosa deslocada -->
-              <rect x="10" y="5" width="13" height="20" rx="1.5" fill="none" stroke="#ff79c6" stroke-width="1.2" opacity="0.85"/>
-              
-              <!-- Fatias da Carta Retangular Principal -->
-              <!-- Fatia Superior (Preta) -->
-              <path d="M 7 4 H 20 V 9 H 6 V 6 Z" fill="#000000" stroke="#a855f7" stroke-width="0.8"/>
-              <!-- Fatia Central (Branca) -->
-              <path d="M 10 10 H 22 V 16 H 9 V 10 Z" fill="#ffffff" stroke="#000000" stroke-width="1"/>
-              <!-- Fatia Inferior (Preta) -->
-              <path d="M 6 17 H 18 V 23 H 7 V 17 Z" fill="#000000" stroke="#ff79c6" stroke-width="0.8"/>
-              
-              <!-- Pixels e Artefatos Glitch (Preto, Roxo, Rosa, Verde) -->
-              <rect x="4" y="8" width="3" height="2" fill="#a855f7"/>
-              <rect x="19" y="13" width="4" height="2" fill="#ff79c6"/>
-              <rect x="11" y="18" width="3" height="2" fill="#2ecc71"/>
-              <rect x="15" y="6" width="2" height="2" fill="#2ecc71"/>
-              <rect x="7" y="14" width="2" height="2" fill="#000000"/>
-              <rect x="18" y="21" width="3" height="2" fill="#a855f7"/>
-            </svg>
-          </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Glitch</h2>
-          <p>Durante 3 turnos você não gasta suas cartas, mas elas ainda aplicam o efeito, além disso os efeitos que você receber te atravessam e vão para o próximo jogador.</p>
-        </div>
-      </div>
-      <div class="card-buff-box">
-        <strong class="label">⚡ Buffs / Carta Melhoria:</strong>
-        <span><span class="buff-name">Falha de Contagem:</span> Nesses 3 turnos, além de não gastar as cartas e não sofrer efeitos, os efeitos das cartas são como você tivesse jogado duas da mesma carta.</span>
-      </div>
-    </article>
-
-    <!-- CARTA 11: FLECHA -->
-    <article class="card-entry">
-      <div class="card-top-row">
-        <div class="uno-card white-card">
-          <div class="card-corner top-left"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-          <div class="card-center">
-            <svg viewBox="0 0 28 28" class="center-icon large-icon">
-              <g transform="rotate(45 14 14)">
-                <path d="M 14 2 L 21 10 H 16 V 20 L 20 24 H 16.5 L 14 21.5 L 11.5 24 H 8 L 12 20 V 10 H 7 Z" fill="#ffffff" stroke="#c084fc" stroke-width="2" stroke-linejoin="miter"/>
-                <path d="M 14 2 L 21 10 H 16 V 20 L 20 24 H 16.5 L 14 21.5 L 11.5 24 H 8 L 12 20 V 10 H 7 Z" fill="none" stroke="#000000" stroke-width="1" stroke-linejoin="miter"/>
-                <line x1="14" y1="5" x2="14" y2="21" stroke="#000000" stroke-width="1"/>
-              </g>
-            </svg>
-          </div>
-          <div class="card-corner bottom-right"><svg viewBox="0 0 20 20"><use href="#uno-4color"/></svg></div>
-        </div>
-        <div class="card-desc-box">
-          <h2>Flecha</h2>
-          <p>Quand
+      </article>
+    `).join('');
+  </script>
+</body>
+</html>
