@@ -196,6 +196,24 @@
         desc: "Pegue uma carta de cor, olhe e deixe ela virada para baixo, o próximo que jogar alguma carta com a mesma cor ou número compra 10 e o antecessor e o sucessor exceto se for você compram 3 cartas.",
         buffName: "Falha Técnica:", buffDesc: "Ao ser descartada, explode imediatamente fazendo todos comprarem 10 e você comprar 2 cartas."
       },
+      {
+        name: "Dos!", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<div class="center-icon large-icon" style="display:flex; align-items:center; justify-content:center; font-weight:900; font-size:32px; color:#ffe600; text-shadow: 2px 2px 0px #000;">DOS!</div>',
+        desc: "Permite você bater com 2 cartas ao invés de uma.",
+        buffName: "Três Dos Uno:", buffDesc: "Deixa você com 2 cartas, mas sem poder bater com duas."
+      },
+      {
+        name: "Makita", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<svg viewBox="0 0 28 28" class="center-icon large-icon"><rect x="4" y="10" width="20" height="7" rx="1.5" fill="#008c99" stroke="#000" stroke-width="0.8"/><rect x="18" y="11" width="7" height="5" rx="1" fill="#333" stroke="#000" stroke-width="0.8"/><circle cx="10" cy="18" r="6" fill="#b0b0b0" stroke="#000" stroke-width="0.8"/><circle cx="10" cy="18" r="1.5" fill="#333"/><path d="M 10 12 L 10 14 M 14 18 L 16 18 M 10 24 L 10 22 M 4 18 L 6 18 M 13 13 L 14 14.5 M 13 23 L 14 21.5 M 7 13 L 6 14.5 M 7 23 L 6 21.5" stroke="#000" stroke-width="0.6"/></svg>',
+        desc: "Corta o seu deck no meio com você ficando com metade de suas cartas atuais.",
+        buffName: "Inquebrável III:", buffDesc: "Pode ser usada mais uma vez quando quiser, e as cartas cortadas vão para outros jogadores de sua escolha."
+      },
+      {
+        name: "Maldade Makita", bg: "white-card", corner: "#uno-4color",
+        centerHtml: '<div class="center-icon large-icon" style="display:flex; align-items:center; justify-content:center; font-size:38px;">🏠</div>',
+        desc: "Quando jogada, pegue uma carta de número do monte: se for par ela aplica o mesmo efeito da carta Makita se for ímpar você compra 3 cartas. (Passiva: quando jogada, se tirar par e alguém der a carta Makita, a carta Makita vai para você)",
+        buffName: "Mestrado:", buffDesc: "A carta aplica o efeito da Makita e faz todos comprarem a mesma quantidade de cartas que você cortou."
+      },
     ];
 
     const container = document.getElementById('wiki-container');
